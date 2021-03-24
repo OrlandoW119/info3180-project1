@@ -24,6 +24,37 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+@app.route("/property", method=["GET","POST"])
+def property():
+    form=PropertyForm()
+    if request.method=="POST" and form.validate_on_submit():
+        title=form.title.data
+        desc=form.desc.data
+        numOfBed=form.numOfBed.data
+        numOfBath=form.numOfBath.data
+        pric=form.pric.data
+        proptype=form.proptype.data
+        location=form.location.data
+        pic=form.pic.data
+        filename=secure_filename(pic.filename)
+        pic.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        userproperty=UserProperty(title,desc,numOfBed,numOfBath,pric,proptype,location,filename)
+        db.session.add(userproperty)
+        db.session.commit()
+        flash("Property successfully created",category="success")
+        return redirect(url_for("properties"))
+return render_template("property.html",form=form)
+
+@app.route("/properties")
+def properties():
+    users=db.session.query(UserProperty).all()
+    return render_template('properties.html', property=users)
+
+@app.route('/property/<propertyid>')
+def user_pro(propertyid):
+    userpro=UserProperty.query.filter_by(id=propertyid).first()
+    return render_template("userproperty.html",userpro=userpro)
+
 
 ###
 # The functions below should be applicable to all Flask apps.
