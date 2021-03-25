@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block main %}
+
+<br>
+<h1 class="page-header">Property</h1>
+{% include "flash_message.html"%}
+<div class="roll" id="rolls">
+<div class="deck">
+    <div class="card">
+    <img class="image 1" src="{{url_for('get_image',filename=userprop.photo_name)}}">
+    </div>
+
+    <div class="card1">
+        <h3 class="card-title">{{userpro.title}}</h3>
+    <div class="icon">
+        <div class="price">
+        {{userpro.pric}}</p>
+    </div>
+        <div class="prop">
+        {{userpro.proptype}}
+    </div>
+    </div>
+    <div class="descr">
+    <p class="card-part">{{userpro.desc}}</p>
+    </div>
+    <div class="deck">
+        <div class="col-md-3">
+    <p><img class="ip" src="{{url_for('static',filename='bed.png')}}"/>{{userpro.numOfBed}} Bedroom</p>
+    </div>
+    <div class="col-md-3">
+        <p><img class="ip" src="{{url_for('static',filename='bath.png')}}"/>{{userpro.numOfBath}} Bathroom</p>
+        </div>
+    </div>
+    <div class="ip2">
+        <p><img class="ip" src="{{url_for('static',filename='loca.png')}}"/>{{userpro.location}}</p>
+        </div>
+    <button class="btn">Email Realtor</button>
+    </div>
+</div>
+</div>
+        
